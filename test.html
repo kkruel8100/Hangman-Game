@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hangman</title>
+</head>
+<body>
+	
+<script>	
+
+var wins=0;
+var losses=0; 
+var wrgGuess=6;
+var computerChoice = "onion";
+//Replace any character (.) in computerChoice with _
+var replaceChoice = computerChoice.replace(/./g, "_");
+
+console.log(computerChoice);
+console.log(replaceChoice);
+
+//Capture keystroke from user and converts to lower case
+document.onkeyup = function (event) {
+	var userguess = String.fromCharCode(event.keyCode). toLowerCase ();
+	console.log(userguess);
+	
+//test for userguess in computerChoice - result is true of false
+	var match = new RegExp(userguess);
+	var result = match.test(computerChoice);
+	console.log(result);
+
+//return index position of all occurences and creates locations array
+	if (result===true) {
+		var locations = [];
+			for(i=0; i<computerChoice.length; i++) {
+			if (computerChoice[i] === userguess) locations.push(i);
+			console.log(locations);
+			}
+		
+//Javascript function define to replace userguess character at identified matched locations 	
+		String.prototype.replaceAt = function(locations,userguess) {
+			return this.substr(0, locations) + userguess + this.substr(locations + userguess.length);
+		}
+//For loop to run the replaceAt for all charactersi
+		for (i=0; i<locations.length; i++) {
+			replaceChoice = replaceChoice.replaceAt(locations[i],userguess);
+			console.log(replaceChoice);
+		}
+
+
+		
+
+	}//end of if
+	
+}//onkeyup
+
+
+
+
+
+
+</script>
+
+
+</body>
+    
+	
+</body>
+</html>

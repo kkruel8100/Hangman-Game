@@ -39,7 +39,7 @@ console.log(display);
 var changeText = "<p>Current Word</p>" +
 	display;
 
-document.querySelector('#start').innerHTML = changeText;
+document.querySelector('#start').innerHTML = computerChoice;
 
 
 //Capture keystroke from user and converts to lower case
