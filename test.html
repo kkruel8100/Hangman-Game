@@ -7,10 +7,13 @@
 	
 <script>	
 
+//list of variables
+
 var wins=0;
 var losses=0; 
 var wrgGuess=6;
 var computerChoice = "onion";
+var guessArray = ["t", "u"];
 //Replace any character (.) in computerChoice with _
 var replaceChoice = computerChoice.replace(/./g, "_");
 
@@ -22,35 +25,70 @@ document.onkeyup = function (event) {
 	var userguess = String.fromCharCode(event.keyCode). toLowerCase ();
 	console.log(userguess);
 	
-//test for userguess in computerChoice - result is true of false
-	var match = new RegExp(userguess);
-	var result = match.test(computerChoice);
-	console.log(result);
+//test for userguess in guessArray - result is true or false
+	var matchGA = new RegExp(userguess);
+	var resultGA = matchGA.test(guessArray);
+	console.log(resultGA);
+		if (resultGA===true) {
+			alert("You've already guessed '" + userguess + "'.  Please try another letter.");
+		}
 
-//return index position of all occurences and creates locations array
-	if (result===true) {
-		var locations = [];
-			for(i=0; i<computerChoice.length; i++) {
-			if (computerChoice[i] === userguess) locations.push(i);
-			console.log(locations);
+		else {
+			//push to guess array	
+			guessArray.push(userguess);
+			console.log(guessArray);
+		
+			//test for userguess in computerChoice - result is true or false
+			var matchCC = new RegExp(userguess);
+			var resultCC = matchCC.test(computerChoice);
+			console.log(resultCC);
+
+			//Good Guess
+
+			//return index position of all occurences and creates locations array
+			if (resultCC===true) {
+				var locations = [];
+				for(i=0; i<computerChoice.length; i++) {
+					if (computerChoice[i] === userguess) locations.push(i);
+						console.log(locations);
+				}
+					
+				//Javascript function define to replace userguess character at identified matched locations 	
+				String.prototype.replaceAt = function(locations,userguess) {
+					return this.substr(0, locations) + userguess + this.substr(locations + userguess.length);
+				}
+				//For loop to run the replaceAt for all charactersi
+				for (i=0; i<locations.length; i++) {
+				replaceChoice = replaceChoice.replaceAt(locations[i],userguess);
+				console.log(replaceChoice);
+				}
+
+				//All letters found	
+				if (replaceChoice===computerChoice) {
+					alert("Congratulations! You win to live another day!");
+					wins++;
+					console.log(wins);
+					document.onkeyup = function(event) {
+						return false;
+					}
+				}
+
+			}//end of if resultCC===true
+
+			//Bad Guess
+			else {
+				wrgGuess--;
+				console.log(wrgGuess);
+				if (wrgGuess===0) {
+					alert("You're Dead!  Hope you are a cat or you believe in Karma.");
+					losses++;
+					document.onkeyup = function(event) {
+						return false;
+					}
+				}
 			}
-		
-//Javascript function define to replace userguess character at identified matched locations 	
-		String.prototype.replaceAt = function(locations,userguess) {
-			return this.substr(0, locations) + userguess + this.substr(locations + userguess.length);
-		}
-//For loop to run the replaceAt for all charactersi
-		for (i=0; i<locations.length; i++) {
-			replaceChoice = replaceChoice.replaceAt(locations[i],userguess);
-			console.log(replaceChoice);
-		}
-
-
-		
-
-	}//end of if
-	
-}//onkeyup
+		} //end of else
+};//onkeyup
 
 
 
