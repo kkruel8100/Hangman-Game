@@ -3,6 +3,11 @@
 <head>
 	<title>Hangman</title>
 
+	 <!-- Added link to the jQuery library -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Custom CSS -->
@@ -10,19 +15,36 @@
 
 </head>
 <body>
-		<h1>Welcome to Hangman</h1>
+		
+		<div class="row game">
 
-		<p>Beat the Hangman in Less than 6 Wrong Guesses</p>
-
-		<p>Press any key to get started.</p>
-
-		<ul id="letters"></ul>
-
-		<div id="start">
 			
+			<div class="col-md-12">
+
+			
+			<h1 class="text-center">Welcome to Pizza Hangman</h1>
+
+			<h3 class="text-center">Beat the Hangman By Guessing the Topping in Less than 6 Wrong Guesses</h3>
+
+			
+			
+			</div>
 		</div>
 
-		<div id="progress">
+		<div class="row board">
+			<div class="col-md-12">
+				<div class="leftSec col-md-3 col-md-offset-2 col-xs-6">	
+				<img src="assets/images/hangman.png" class="img-responsive img-thumbnail bg-success" alt="Hangman">	
+				</div>
+				<div class="rightSec col-md-3 col-md-offset-2 col-xs-6">
+					<div class="row">
+						
+					</div>
+					<div class="row">
+					<p id="click-me" class="text-center">Click Me to Start.</p>
+					</div>			
+				</div>
+			</div>
 
 		</div>
 </body>
@@ -33,7 +55,8 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<!-- Custom Javascript -->
-	<script src="assets/javascript/game.js"></script>
+	<!--Using test file -->
+	<script src="assets/javascript/test.js"></script>
 
 </body>
 </html>

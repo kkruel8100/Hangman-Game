@@ -1,38 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Hangman</title>
-</head>
-<body>
-	
-<script>	
+
 
 //list of variables
-
 var wins=0;
 var losses=0; 
 var wrgGuess=6;
-var computerChoice = "onion";
-var guessArray = ["t", "u"];
-//Replace any character (.) in computerChoice with _
-var replaceChoice = computerChoice.replace(/./g, "_");
+var toppings = ["pepperoni", "sausage", "sardine", "cheese", "jalapeno", "onion", "spinach", "pineapple", "mushroom", "chicken"];
+var guessArray = []; 
 
-console.log(computerChoice);
-console.log(replaceChoice);
+  
+// "document.ready" makes sure that our JavaScript doesn't get run until the HTML document is finished loading.
 
- // This "document.ready" code isn't necessary in this example... but is useful to become familiar with.
-    // "document.ready" makes sure that our JavaScript doesn't get run until the HTML document is finished loading.
-    $(document).ready(function() {
+$(document).ready(function() {
 
-    	// Here we use jQuery to select the header with "click-me" as its ID.
-      // Whenever it is clicked...
-      $("#click-me").on("click", function() {
+    //jQuery to select the header with "click-me" as its ID.
+    // Whenever it is clicked...
+    $("#click-me").on("click", function() {
 
         // ... we trigger an alert.
         alert("I've been clicked!");
-      });
 
- });
+// Randomize computer choice for hidden word
+var computerChoice = toppings[Math.floor((Math.random() * (toppings.length)))];
+console.log("Computer chose " + computerChoice);
+//Replace any character (.) in computerChoice with _
+var replaceChoice = computerChoice.replace(/./g, "_");  
+
+ 
 
 //Capture keystroke from user and converts to lower case
 document.onkeyup = function (event) {
@@ -67,6 +60,12 @@ document.onkeyup = function (event) {
 						console.log(locations);
 				}
 					
+
+
+
+
+
+
 				//Javascript function define to replace userguess character at identified matched locations 	
 				String.prototype.replaceAt = function(locations,userguess) {
 					return this.substr(0, locations) + userguess + this.substr(locations + userguess.length);
@@ -103,17 +102,11 @@ document.onkeyup = function (event) {
 			}
 		} //end of else
 };//onkeyup
+});//click-me game
+});//document ready
 
 
 
 
 
 
-</script>
-
-
-</body>
-    
-	
-</body>
-</html>
