@@ -1,127 +1,105 @@
-// Array for hidden words
-var toppings = ["pepperoni", "sausage", "sardine", "cheese", "jalapeno", "onion", "spinach", "pineapple", "mushroom", "chicken"];
 
-console.log(toppings);
 
-// List variables
+//list of variables
 var wins=0;
-var losses=0;
+var losses=0; 
 var wrgGuess=6;
-var gameOver=false;
-var ugArray=[];
-var mhArray=[];
+var toppings = ["pepperoni", "sausage", "sardine", "cheese", "jalapeno", "onion", "spinach", "pineapple", "mushroom", "chicken"];
+var guessArray = []; 
 
+  
+// "document.ready" makes sure that our JavaScript doesn't get run until the HTML document is finished loading.
 
-// Randomize computer choice for hidden word
-var computerChoice = toppings[Math.floor((Math.random() * (toppings.length)))];
-console.log("Computer chose " + computerChoice);
+$(document).ready(function() {
 
-//Split computer chosen word into single character array
-var ccArray = computerChoice.split("");
-console.log(ccArray);
-console.log(ccArray.length);
+   //jQuery to select the header with "click-me" as its class.
+   // Whenever it is clicked...
+   $(".click-me").on("click", function() {
 
+      // ... we trigger an alert.
+      alert("I've been clicked!");
 
-//Create Screen display for number of letters in hidden word
-	for (var i=0; i < ccArray.length; i++) {
-		myHash = ccArray[i].replace(ccArray[i], "_");
-		mhArray.push(myHash);
+		// Randomize computer choice for hidden word
+		var computerChoice = toppings[Math.floor((Math.random() * (toppings.length)))];
+		console.log("Computer chose " + computerChoice);
+		//Replace any character (.) in computerChoice with _
+		var replaceChoice = computerChoice.replace(/./g, "_");  
 
-	}
-//Makes array a string with spaces for display	
-var display = mhArray.join(" ");
-
-console.log(display);
-
-
-
-//Changes HTML and Displays computer choice
-var changeText = "<p>Current Word</p>" +
-	display;
-
-document.querySelector('#start').innerHTML = computerChoice;
-
-
-//Capture keystroke from user and converts to lower case
-	document.onkeyup = function (event) {
-		var userguess = String.fromCharCode(event.keyCode). toLowerCase ();
-		console.log(userguess);
-		console.log(wrgGuess);
-
-//Compares user keystroke with characters in computer array		
-		for (var i=0; i < ccArray.length-1; i++) {
-			if (ccArray[i] === userguess) {
-				console.log("Match");
-			//	display = display.replace(userguess);
-				function setCharAt (display, i, userguess) {
-					if (i > display.length-1) return display;
-					return display.substr(0, i) + userguess + display.substr(i+1);
-				}
-	//			console.log(display);
-//				var display = mhArray.join(" ");
-			}
-//No match result equals indexOf -1 & number of guesses decreases by one
-			if (ccArray.indexOf(userguess) === -1) {
-				wrgGuess--;
-				console.log("Loser");
-				console.log("Wrong Guesses: " + wrgGuess);
-				break;
-			}
-		}	
-				
-		if (wrgGuess===0) {
-			console.log(wrgGuess);
-			gameOver=true;
-			console.log("You are Dead! Game Over");	
-					
-			alert("Game Over");		
-		}
-//Pushes user guesses into array
-		ugArray.push(userguess);
-				
-//Changes HTML file text with below text
-		var changeText = "<p>Number of Wrong Guesses Remaining: " + wrgGuess + "</p>" +
-			"<p>Letters already guessed: </p>"+ 
-			ugArray +
-			"<p></p>" +
-			"<p></p>" +
-			"<p>Wins: " + wins + "</p>" +
-			"<p>Losses: " + losses + "</p>";
-
-		document.querySelector('#progress').innerHTML = changeText;			
-
-	}
-		
-
-/*
-var fruits = ["apple", "banana", "orange"];
-var hiddenWord = 
-
-
-var cText = ccArray.length;
-console.log(cText);
-var changeText = cText(len +1).join("_ ");
-*/
+ 		//Capture keystroke from user and converts to lower case
+		document.onkeyup = function (event) {
+			var userguess = String.fromCharCode(event.keyCode). toLowerCase ();
+			console.log(userguess);
 	
+			//test for userguess in guessArray - result is true or false
+			var matchGA = new RegExp(userguess);
+			var resultGA = matchGA.test(guessArray);
+			console.log(resultGA);
+				if (resultGA===true) {
+					alert("You've already guessed '" + userguess + "'.  Please try another letter.");
+				}
 
-//while (gameOver=false) {
-//	}
-// 
-//while (!finished) {
-//		if (wrgGuess===6) {
-//			console.log("You're Dead! Game Over!");
-//		}
-//}
-//		if (wrgGuess===6) {		
-//			console.log("You're Dead! Game Over!");
-//	while (!finished) {
-//			finished=true;}
-//	do {
-//		console.log(wrgGuess);
-//		wrgGuess++;
-//	}
-//	while (wrgGuess<6);	
+				else {
+					//push to guess array	
+					guessArray.push(userguess);
+					console.log(guessArray);
+		
+					//test for userguess in computerChoice - result is true or false
+					var matchCC = new RegExp(userguess);
+					var resultCC = matchCC.test(computerChoice);
+					console.log(resultCC);
+
+					//Good Guess
+
+					//return index position of all occurences and creates locations array
+					if (resultCC===true) {
+						var locations = [];
+						for(i=0; i<computerChoice.length; i++) {
+							if (computerChoice[i] === userguess) locations.push(i);
+							console.log(locations);
+						}
+					
+
+						//Javascript function define to replace userguess character at identified matched locations 	
+						String.prototype.replaceAt = function(locations,userguess) {
+							return this.substr(0, locations) + userguess + this.substr(locations + userguess.length);
+						}
+						//For loop to run the replaceAt for all charactersi
+						for (i=0; i<locations.length; i++) {
+							replaceChoice = replaceChoice.replaceAt(locations[i],userguess);
+							console.log(replaceChoice);
+						}
+
+						//All letters found	
+						if (replaceChoice===computerChoice) {
+							alert("Congratulations! You win to live another day!");
+							wins++;
+							console.log(wins);
+							document.onkeyup = function(event) {
+								return false;
+							}
+						}
+
+					}//end of if resultCC===true
+
+					//Bad Guess
+					else {
+						wrgGuess--;
+						console.log(wrgGuess);
+						if (wrgGuess===0) {
+							alert("You're Dead!  Hope you are a cat or you believe in Karma.");
+							losses++;
+							document.onkeyup = function(event) {
+								return false;
+							}
+						}
+					}
+				} //end of else
+		};//onkeyup
+	});//click-me game
+});//document ready
 
 
-/*	if (wrgGuess<6) {
-*/
+
+
+
+

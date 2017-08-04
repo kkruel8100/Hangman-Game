@@ -1,25 +1,23 @@
 body {
-	background: url("../images/toppings.jpg") no-repeat;
+	background: url("../images/Wood-Desktop-BG.png");
 	background-size: cover;
-
 }
 
-h1, h2, h3, p { 
+p {
+	font-family: 'PT Sans', sans-serif;
 	color: #fff;
-	font-family: 'Raleway', sans-serif;
 }
 
-h1 {
-	font-weight: bolder;
-	
-
+.leftSide, .rightSide {
+	background: black;
+	padding: 0px;
+	border: 3px #ffffff double;
+	border-radius: 10px;
 }
 
-.game {
-	margin-bottom: 15px;
-	background-color: black;
+
+.row.row-eq-height {
+    padding-left: 20px;
 }
 
-.rightSec {
-	border: 2px solid gray;
-}
+
