@@ -2,7 +2,6 @@
 //list of variables
 var wins=0;
 var losses=0; 
-var wrgGuess=6;
 var toppings = ["pepperoni", "sausage", "sardine", "cheese", "jalapeno", "onion", "spinach", "pineapple", "mushroom", "chicken"];
 var guessArray = []; 
 var deadSound = new Audio("assets/sounds/funeral_march_by_chopin.mp3");
@@ -20,12 +19,10 @@ $(document).ready(function() {
    	// Whenever it is clicked...
    	$("#clickStart").on("click", function() {
 
-      // ... we trigger an alert.
-      alert("I've been clicked!");
-
+   		// Set wrong guess for reset function
+   		var wrgGuess=6;
 		// Randomize computer choice for hidden word
 		var computerChoice = toppings[Math.floor((Math.random() * (toppings.length)))];
-		console.log("Computer chose " + computerChoice);
 
 		//Replace any character (.) in computerChoice with _
 		var replaceChoice = computerChoice.replace(/./g, "_");  
@@ -34,6 +31,7 @@ $(document).ready(function() {
 		
 		document.getElementById("clickStart").style.visibility = "collapse";
 		document.getElementById("currentWord").innerHTML = "Pizza Topping";
+		document.getElementById("secretWord").style.visibility = "visible";
 		document.getElementById("secretWord").innerHTML = replaceChoice;
 		document.getElementById("letGuess").innerHTML = "Letters Guessed";
 		document.getElementById("countDown").innerHTML = "Wrong Guesses remaining: " + wrgGuess;
@@ -41,12 +39,11 @@ $(document).ready(function() {
  		//Capture keystroke from user and converts to lower case
 		document.onkeyup = function (event) {
 			var userguess = String.fromCharCode(event.keyCode). toLowerCase ();
-			console.log(userguess);
-	
+			
 			//test for userguess in guessArray - result is true or false
 			var matchGA = new RegExp(userguess);
 			var resultGA = matchGA.test(guessArray);
-			console.log(resultGA);
+
 				if (resultGA===true) {
 					alert("You've already guessed '" + userguess + "'.  Please try another letter.");
 				}
@@ -56,12 +53,10 @@ $(document).ready(function() {
 					guessArray.push(userguess);
 					document.getElementById("letGuess").innerHTML = "Letters Guessed";
 					document.getElementById("array").innerHTML = guessArray;
-					console.log(guessArray);
 		
 					//test for userguess in computerChoice - result is true or false
 					var matchCC = new RegExp(userguess);
 					var resultCC = matchCC.test(computerChoice);
-					console.log(resultCC);
 
 					//Good Guess
 
@@ -70,7 +65,6 @@ $(document).ready(function() {
 						var locations = [];
 						for(i=0; i<computerChoice.length; i++) {
 							if (computerChoice[i] === userguess) locations.push(i);
-							console.log(locations);
 						}
 					
 
@@ -82,7 +76,6 @@ $(document).ready(function() {
 						for (i=0; i<locations.length; i++) {
 							replaceChoice = replaceChoice.replaceAt(locations[i],userguess);
 							document.getElementById("secretWord").innerHTML = replaceChoice;
-							console.log(replaceChoice);
 						}
 
 						
@@ -97,7 +90,6 @@ $(document).ready(function() {
 							console.log(wins);
 							guessArray = [];
 							wrgGuess = 6;
-							console.log(guessArray);
 							document.onkeyup = function(event) {
 								return false;
 							}
@@ -112,7 +104,6 @@ $(document).ready(function() {
 					//Bad Guess
 					else {
 						wrgGuess--;
-						console.log(wrgGuess);
 						document.getElementById("countDown").innerHTML = "Wrong Guesses remaining: " + wrgGuess;
 						if (wrgGuess===0) {
 							deadSound.play();
@@ -141,15 +132,14 @@ $(document).ready(function() {
 		var losses=0;
 		var wrgGuess=6;
 		var guessArray = [];
-		alert("You clicked reset");
-		console.log("losses " + losses);
-		console.log("wins " + wins);
-		console.log("wrgGuess" + wrgGuess);
-		console.log("guessArray" + guessArray);
 		document.getElementById("wins").innerHTML = "Wins: ";
 		document.getElementById("losses").innerHTML = "Losses: ";
-		document.getElementById("countDown").innerHTML = "Wrong Guesses remaining: " + wrgGuess;
+		document.getElementById("clickStart").style.visibility = "visible";
+		document.getElementById("currentWord").innerHTML = "Pizza Topping";
+		document.getElementById("secretWord").style.visibility = "hidden";
 		document.getElementById("array").innerHTML = guessArray;
+		document.getElementById("countDown").innerHTML = "Wrong Guesses remaining: " + wrgGuess;
+		
 	});
 
 });//document ready
