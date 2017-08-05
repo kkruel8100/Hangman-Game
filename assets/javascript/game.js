@@ -1,10 +1,11 @@
 
 //list of variables
- 
+var wins=0;
+var losses=0; 
 var toppings = ["pepperoni", "sausage", "sardine", "cheese", "jalapeno", "onion", "spinach", "pineapple", "mushroom", "chicken"];
 var deadSound = new Audio("assets/sounds/funeral_march_by_chopin.mp3");
 var winSound = new Audio("assets/sounds/stadium_applause.mp3");
-
+var resetGame = false;
 
   
 // "document.ready" makes sure that our JavaScript doesn't get run until the HTML document is finished loading.
@@ -16,10 +17,12 @@ $(document).ready(function() {
    	//jQuery to select the header with "click-me" as its class.
    	// Whenever it is clicked...
    	$("#clickStart").on("click", function() {
-
+   		// If game has been reset, then reset wins and losses
+   		if (resetGame===true) {
+   			wins=0;
+   			losses=0;
+   		}
    		// Set variables here so that reset function operates
-   		var wins=0;
-		var losses=0;
    		var wrgGuess=6;
    		var guessArray = []; 
 		// Randomize computer choice for hidden word
@@ -86,9 +89,7 @@ $(document).ready(function() {
 						if (replaceChoice===computerChoice) {
 							document.getElementById("secretWord").innerHTML = computerChoice;
 							winSound.play();
-							
 							wins++;
-							console.log(wins);
 							guessArray = [];
 							wrgGuess = 6;
 							document.onkeyup = function(event) {
@@ -140,6 +141,7 @@ $(document).ready(function() {
 		document.getElementById("secretWord").style.visibility = "hidden";
 		document.getElementById("array").innerHTML = guessArray;
 		document.getElementById("countDown").innerHTML = "Wrong Guesses remaining: " + wrgGuess;
+		resetGame = true;
 		
 	});
 
