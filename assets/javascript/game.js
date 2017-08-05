@@ -1,11 +1,13 @@
 
-
 //list of variables
 var wins=0;
 var losses=0; 
 var wrgGuess=6;
 var toppings = ["pepperoni", "sausage", "sardine", "cheese", "jalapeno", "onion", "spinach", "pineapple", "mushroom", "chicken"];
 var guessArray = []; 
+var deadSound = new Audio("assets/sounds/funeral_march_by_chopin.mp3");
+var winSound = new Audio("assets/sounds/stadium_applause.mp3");
+
 
   
 // "document.ready" makes sure that our JavaScript doesn't get run until the HTML document is finished loading.
@@ -88,7 +90,9 @@ $(document).ready(function() {
 
 						//All letters found	
 						if (replaceChoice===computerChoice) {
-							alert("Congratulations! You win to live another day!");
+							document.getElementById("secretWord").innerHTML = computerChoice;
+							winSound.play();
+							
 							wins++;
 							console.log(wins);
 							guessArray = [];
@@ -111,7 +115,9 @@ $(document).ready(function() {
 						console.log(wrgGuess);
 						document.getElementById("countDown").innerHTML = "Wrong Guesses remaining: " + wrgGuess;
 						if (wrgGuess===0) {
-							alert("You're Dead!  Hope you are a cat or you believe in Karma.");
+							deadSound.play();
+							alert("You're Dead!  There is no pizza in the afterlife.");
+							document.getElementById("secretWord").innerHTML = computerChoice;
 							losses++;
 							guessArray = [];
 							wrgGuess = 6;
