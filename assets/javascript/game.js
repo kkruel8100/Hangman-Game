@@ -1,9 +1,7 @@
 
 //list of variables
-var wins=0;
-var losses=0; 
+ 
 var toppings = ["pepperoni", "sausage", "sardine", "cheese", "jalapeno", "onion", "spinach", "pineapple", "mushroom", "chicken"];
-var guessArray = []; 
 var deadSound = new Audio("assets/sounds/funeral_march_by_chopin.mp3");
 var winSound = new Audio("assets/sounds/stadium_applause.mp3");
 
@@ -19,8 +17,11 @@ $(document).ready(function() {
    	// Whenever it is clicked...
    	$("#clickStart").on("click", function() {
 
-   		// Set wrong guess for reset function
+   		// Set variables here so that reset function operates
+   		var wins=0;
+		var losses=0;
    		var wrgGuess=6;
+   		var guessArray = []; 
 		// Randomize computer choice for hidden word
 		var computerChoice = toppings[Math.floor((Math.random() * (toppings.length)))];
 
