@@ -33,21 +33,44 @@
 
 		<div class="row board">
 			<div class="col-md-12">
-				
+			  <div class="separator">
 				<div class="leftSide col-md-3 col-md-offset-2 col-xs-6">	
 					<div class="row row-eq-height">
-						<p>popfosidofiodsifoapisopdf</p>
-				
+						<h3>How to play the game</h3>
+						<ol>
+							<li>Solve for the hidden pizza topping in less than 6 wrong guesses or get hung.</li>
+							<li>Each win counts towards your total score and validates your Italian heritage.</li>
+							<li>Each loss helps you perfect the fine art of pizza dining.</li>
+						</ol>
+						<div class="col-md-6">
+							<p id="wins">Wins: </p>
+							<p id="losses">Losses: </p>
+						</div>
+						<div class="col-md-6">
+							<button id = "reset" type="button" class="btn btn-danger reset-me">Reset</button>
+						</div>
 					</div>
 				</div>
-
-				<div class="rightSide col-md-3 col-md-offset-1 col-xs-6">
+			  </div>
+			  <div class="separator">
+				<div class="rightSide col-md-3 col-md-offset-2 col-xs-6">
 					<div class="row row-eq-height">
-						<button type="button" class="btn btn-danger click-me">Click Me</button>
-						
+						<div class="row">
+							<button id = "clickStart" type="button" class="btn btn-warning click-me center-block">Play</button>
+							<h3 id="currentWord"></h3>
+							<p id="secretWord"></p>
+						</div>
+						<div class="row">
+							<h3 id="letGuess"></h3>
+							<p id="array"></p>
+						</div>
+						<div class="row">
+							<h4 id="countDown"></h4>
+						</div>
 					</div>
 
 				</div>
+			  </div>
 			</div>
 
 		</div>

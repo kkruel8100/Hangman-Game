@@ -3,21 +3,50 @@ body {
 	background-size: cover;
 }
 
-p {
+body, h1, h2, h3, h4, h5, h6, p {
 	font-family: 'PT Sans', sans-serif;
 	color: #fff;
 }
 
+.separator {
+	margin: 0 10px;
+}
+
 .leftSide, .rightSide {
 	background: black;
-	padding: 0px;
+	padding: 10px;
 	border: 3px #ffffff double;
-	border-radius: 10px;
+	border-radius: 5px;
+	
+}
+
+.row {
+	padding: 0 20px;
+	margin-bottom: 20px;
+}
+
+ol {
+	padding-left: 20px;
+}
+
+li {
+	margin: 10px 0;
 }
 
 
 .row.row-eq-height {
     padding-left: 20px;
+}
+
+.rightSide #array {
+	letter-spacing: 7px;
+	color: #ffffff;
+}
+
+.rightSide #secretWord {
+	letter-spacing: 10px;
+	font-size: 20px;
+	color: #ffffff;
 }
 
 
